@@ -36,3 +36,4 @@ D:\Behrouz\Projects_New\CoreAngular\core-angular\CoreAngular.API\CoreAngular.API
 D:\Behrouz\Projects_New\CoreAngular\core-angular\CoreAngular.API\CoreAngular.API\bin\Debug\netcoreapp3.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 D:\Behrouz\Projects_New\CoreAngular\core-angular\CoreAngular.API\CoreAngular.API\obj\Debug\netcoreapp3.0\CoreAngular.API.MvcApplicationPartsAssemblyInfo.cache
 D:\Behrouz\Projects_New\CoreAngular\core-angular\CoreAngular.API\CoreAngular.API\obj\Debug\netcoreapp3.0\CoreAngular.API.csproj.CopyComplete
+D:\Behrouz\Projects_New\CoreAngular\core-angular\CoreAngular.API\CoreAngular.API\obj\Debug\netcoreapp3.0\CoreAngular.API.csprojAssemblyReference.cache
