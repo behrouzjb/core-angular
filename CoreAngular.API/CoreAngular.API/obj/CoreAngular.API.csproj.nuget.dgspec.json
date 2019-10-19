@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Behrouz\\Projects_New\\CoreAngular\\core-angular\\CoreAngular\\CoreAngular.API\\CoreAngular.API.csproj": {}
+    "D:\\Behrouz\\Projects_New\\CoreAngular\\core-angular\\CoreAngular.API\\CoreAngular.API\\CoreAngular.API.csproj": {}
   },
   "projects": {
-    "D:\\Behrouz\\Projects_New\\CoreAngular\\core-angular\\CoreAngular\\CoreAngular.API\\CoreAngular.API.csproj": {
+    "D:\\Behrouz\\Projects_New\\CoreAngular\\core-angular\\CoreAngular.API\\CoreAngular.API\\CoreAngular.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Behrouz\\Projects_New\\CoreAngular\\core-angular\\CoreAngular\\CoreAngular.API\\CoreAngular.API.csproj",
+        "projectUniqueName": "D:\\Behrouz\\Projects_New\\CoreAngular\\core-angular\\CoreAngular.API\\CoreAngular.API\\CoreAngular.API.csproj",
         "projectName": "CoreAngular.API",
-        "projectPath": "D:\\Behrouz\\Projects_New\\CoreAngular\\core-angular\\CoreAngular\\CoreAngular.API\\CoreAngular.API.csproj",
+        "projectPath": "D:\\Behrouz\\Projects_New\\CoreAngular\\core-angular\\CoreAngular.API\\CoreAngular.API\\CoreAngular.API.csproj",
         "packagesPath": "C:\\Users\\Behrouz\\.nuget\\packages\\",
-        "outputPath": "D:\\Behrouz\\Projects_New\\CoreAngular\\core-angular\\CoreAngular\\CoreAngular.API\\obj\\",
+        "outputPath": "D:\\Behrouz\\Projects_New\\CoreAngular\\core-angular\\CoreAngular.API\\CoreAngular.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Microsoft\\Xamarin\\NuGet\\",
@@ -42,6 +42,12 @@
       },
       "frameworks": {
         "netcoreapp3.0": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
