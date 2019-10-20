@@ -11,24 +11,36 @@ import { BsDatepickerConfig } from 'ngx-bootstrap';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
-  @Output() cancelLogin = new EventEmitter();
   user: User;
-  loginForm: FormGroup;
-  bsConfig: Partial<BsDatepickerConfig>;
 
   constructor(
     private userService: UserService,
     private router: Router,
     private fb: FormBuilder) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
-  login() {
-    this.userService.login(this.user).subscribe(() => {
+  login(): void {
+    this.userService.login(this.user).subscribe(next => {
+      console.log('Logged in successfully');
+    }, error => {
+      console.log(error);
+    }, () => {
       this.router.navigate(['/users']);
     });
+  }
+
+  loggedIn(): boolean {
+    const token = localStorage.getItem('token');
+    return !!token;
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.userService.decodedToken = null;
+    this.userService.currentUser = null;
+    this.router.navigate(['/home']);
   }
 
 }

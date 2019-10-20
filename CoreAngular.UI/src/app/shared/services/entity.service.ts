@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Entity } from './../models/entity';
 
 @Injectable({
@@ -10,7 +11,9 @@ export class EntityService<T extends Entity> {
     public http: HttpClient;
     public url: string;
 
-    constructor(public endpoint: string) { }
+    constructor(public endpoint: string) {
+      this.url = environment.apiUrl;
+     }
 
     public get(params: any[]): Observable<T> {
       return this.http.get<T>(`${this.url}/${this.endpoint}/${params}`);
