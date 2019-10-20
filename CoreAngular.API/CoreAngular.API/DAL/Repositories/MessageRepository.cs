@@ -9,44 +9,50 @@ namespace CoreAngular.API.DAL.Repositories
 {
     public class MessageRepository : IMessageRepository
     {
-        public MessageRepository()
-        {
+        private readonly IUnitOfWork _unitOfWork;
 
-        }
-
-        public void Add(Message entity)
+        public MessageRepository(IUnitOfWork unitOfWork)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(Message entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Message> Find(Expression<Func<Message, bool>> predicate)
-        {
-            throw new NotImplementedException();
+            _unitOfWork = unitOfWork;
         }
 
         public Message Get(params object[] values)
         {
-            throw new NotImplementedException();
+            return _unitOfWork.Context.Set<Message>().Find(values);
+        }
+
+        public Message GetById(int id)
+        {
+            return _unitOfWork.Context.Set<Message>().SingleOrDefault(t => t.Id == id);
         }
 
         public IEnumerable<Message> GetAll()
         {
-            throw new NotImplementedException();
+            return _unitOfWork.Context.Set<Message>().AsEnumerable<Message>();
         }
 
-        public void SaveChanges()
+        public IEnumerable<Message> Find(Expression<Func<Message, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return _unitOfWork.Context.Set<Message>().Where(predicate).AsEnumerable<Message>();
         }
 
-        public void Update(Message entity)
+        public void Add(Message message)
         {
-            throw new NotImplementedException();
+            _unitOfWork.Context.Set<Message>().Add(message);
+            _unitOfWork.SaveChanges();
+        }
+
+        public void Update(Message message)
+        {
+            _unitOfWork.Context.Set<Message>().Attach(message);
+            _unitOfWork.SaveChanges();
+        }
+
+        public void Delete(Message message)
+        {
+            Message existing = _unitOfWork.Context.Set<Message>().Find(message);
+            if (existing != null) _unitOfWork.Context.Set<Message>().Remove(existing);
+            _unitOfWork.SaveChanges();
         }
     }
 }

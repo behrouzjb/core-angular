@@ -6,7 +6,6 @@ namespace CoreAngular.API.DAL.Models
 {
     public partial class User : Entity
     {
-        public int Id { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public string Password { get; set; }
@@ -26,9 +25,5 @@ namespace CoreAngular.API.DAL.Models
         public string Country { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public DateTime? DateLastActive { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateModified { get; set; }
-        public int CreatedBy { get; set; }
-        public int ModifiedBy { get; set; }
     }
 }

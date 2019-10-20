@@ -6,7 +6,6 @@ namespace CoreAngular.API.DAL.Models
 {
     public partial class Message : Entity
     {
-        public int Id { get; set; }
         public int SendingUserId { get; set; }
         public int ReceivingUserId { get; set; }
         public string Title { get; set; }
@@ -16,9 +15,5 @@ namespace CoreAngular.API.DAL.Models
         public bool IsReceiverDeleted { get; set; }
         public DateTime? DateRead { get; set; }
         public DateTime DateSent { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateModified { get; set; }
-        public int CreatedBy { get; set; }
-        public int ModifiedBy { get; set; }
     }
 }

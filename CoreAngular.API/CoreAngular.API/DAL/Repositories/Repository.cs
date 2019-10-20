@@ -18,7 +18,12 @@ namespace CoreAngular.API.DAL.Repositories
 
         public T Get(params object[] values)
         {
-            return _unitOfWork.Context.Set<T>().SingleOrDefault();
+            return _unitOfWork.Context.Set<T>().Find(values);
+        }
+
+        public T GetById(int id)
+        {
+            return _unitOfWork.Context.Set<T>().SingleOrDefault(t => t.Id == id);
         }
 
         public IEnumerable<T> GetAll()
@@ -34,26 +39,26 @@ namespace CoreAngular.API.DAL.Repositories
         public void Add(T entity)
         {
             _unitOfWork.Context.Set<T>().Add(entity);
-            SaveChanges();
+            _unitOfWork.SaveChanges();
         }
 
         public void Update(T entity)
         {
             // _unitOfWork.Context.Entry(entity).State = EntityState.Modified;
             _unitOfWork.Context.Set<T>().Attach(entity);
-            SaveChanges();
+            _unitOfWork.SaveChanges();
         }
 
         public void Delete(T entity)
         {
             T existing = _unitOfWork.Context.Set<T>().Find(entity);
             if (existing != null) _unitOfWork.Context.Set<T>().Remove(existing);
-            SaveChanges();
-        }
-
-        public void SaveChanges()
-        {
             _unitOfWork.SaveChanges();
         }
+
+        //public void SaveChanges()
+        //{
+        //    _unitOfWork.SaveChanges();
+        //}
     }
 }

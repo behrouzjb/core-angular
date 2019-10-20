@@ -10,11 +10,12 @@ namespace CoreAngular.API.DAL.Repositories
     public interface IRepository<T> where T : Entity
     {
         T Get(params object[] values);
+        T GetById(int id);
         IEnumerable<T> GetAll();
         IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);
-        void SaveChanges();
+        //void SaveChanges();
     }
 }

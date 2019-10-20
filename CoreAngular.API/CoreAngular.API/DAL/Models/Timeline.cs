@@ -6,8 +6,7 @@ namespace CoreAngular.API.DAL.Models
 {
     public partial class Timeline : Entity
     {
-        public int Id { get; set; }
-        public DateTime? DateCreated { get; set; }
+        public DateTime? DateInitiated { get; set; }
         public DateTime? DateCompleted { get; set; }
     }
 }

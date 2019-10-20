@@ -76,7 +76,12 @@ namespace CoreAngular.API.DAL.Repositories
 
         public User Get(params object[] values)
         {
-            return _unitOfWork.Context.Set<User>().SingleOrDefault();
+            return _unitOfWork.Context.Set<User>().Find(values);
+        }
+
+        public User GetById(int id)
+        {
+            return _unitOfWork.Context.Set<User>().SingleOrDefault(t => t.Id == id);
         }
 
         public IEnumerable<User> GetAll()
@@ -92,24 +97,19 @@ namespace CoreAngular.API.DAL.Repositories
         public void Add(User user)
         {
             _unitOfWork.Context.Set<User>().Add(user);
-            SaveChanges();
+            _unitOfWork.SaveChanges();
         }
 
         public void Update(User user)
         {
             _unitOfWork.Context.Set<User>().Attach(user);
-            SaveChanges();
+            _unitOfWork.SaveChanges();
         }
 
         public void Delete(User user)
         {
             User existing = _unitOfWork.Context.Set<User>().Find(user);
             if (existing != null) _unitOfWork.Context.Set<User>().Remove(existing);
-            SaveChanges();
-        }
-
-        public void SaveChanges()
-        {
             _unitOfWork.SaveChanges();
         }
     }
