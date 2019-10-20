@@ -39,6 +39,11 @@ namespace CoreAngular.API.BLL.Services
             return _userRepository.Get(values);
         }
 
+        public User GetById(int id)
+        {
+            return _userRepository.Get(id);
+        }
+
         public IEnumerable<User> GetAll()
         {
             return _userRepository.GetAll().ToList();
@@ -49,19 +54,19 @@ namespace CoreAngular.API.BLL.Services
             return _userRepository.Find(predicate).ToList();
         }
 
-        public void Add(User entity)
+        public void Add(User user)
         {
-            _userRepository.Add(entity);
+            _userRepository.Add(user);
         }
 
-        public void Update(User entity)
+        public void Update(User user)
         {
-            _userRepository.Update(entity);
+            _userRepository.Update(user);
         }
 
-        public void Delete(User entity)
+        public void Delete(User user)
         {
-            _userRepository.Delete(entity);
+            _userRepository.Delete(user);
         }
     }
 }

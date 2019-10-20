@@ -10,6 +10,7 @@ namespace CoreAngular.API.BLL.Services
     public interface IEntityService<T> where T : Entity
     {
         T Get(params object[] values);
+        T GetById(int id);
         IEnumerable<T> GetAll();
         IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
         void Add(T entity);

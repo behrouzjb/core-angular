@@ -22,6 +22,11 @@ namespace CoreAngular.API.BLL.Services
             return _repo.Get(values);
         }
 
+        public T GetById(int id)
+        {
+            return _repo.Get(id);
+        }
+
         public IEnumerable<T> GetAll()
         {
             return _repo.GetAll().ToList();
