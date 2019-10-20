@@ -3,6 +3,9 @@
 ################################################################################
 
 /.vs
-/CoreAngular/.vs/CoreAngular/v16
-/CoreAngular.API/.vs/CoreAngular/v16
-/CoreAngular.API/.vs/CoreAngular/DesignTimeBuild
+*.suo
+*.user
+bin
+obj
+packages
+/CoreAngular.API/.vs/CoreAngular

@@ -1,11 +1,10 @@
-﻿using System;
+﻿using CoreAngular.API.DAL.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace CoreAngular.API.DAL.Models
+namespace CoreAngular.API.Models
 {
-    public class User : Entity
+    public partial class User : Entity
     {
         public int Id { get; set; }
         public byte[] PasswordHash { get; set; }
@@ -24,8 +23,8 @@ namespace CoreAngular.API.DAL.Models
         public string City { get; set; }
         public string Province { get; set; }
         public string Country { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public DateTime DateLastActive { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+        public DateTime? DateLastActive { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
         public int CreatedBy { get; set; }
