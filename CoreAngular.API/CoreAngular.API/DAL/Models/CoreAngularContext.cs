@@ -1,16 +1,13 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Configuration;
 
-namespace CoreAngular.API.DAL.Models
+namespace CoreAngular.API.Models
 {
     public partial class CoreAngularContext : DbContext
     {
-        public IConfiguration Configuration { get; }
-        public CoreAngularContext(IConfiguration configuration)
+        public CoreAngularContext()
         {
-            Configuration = configuration;
         }
 
         public CoreAngularContext(DbContextOptions<CoreAngularContext> options)
@@ -33,8 +30,8 @@ namespace CoreAngular.API.DAL.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                // #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer(Configuration.GetConnectionString("CoreAngular"));
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=DESKTOP-2VUBB2K\\SQLEXPRESS;Database=CoreAngular;Trusted_Connection=True;");
             }
         }
 
