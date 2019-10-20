@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace CoreAngular.API.Models
+namespace CoreAngular.API.DAL.Models
 {
     public partial class CoreAngularContext : DbContext
     {

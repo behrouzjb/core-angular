@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace CoreAngular.API.Models
+namespace CoreAngular.API.DAL.Models
 {
     public partial class Order : Entity
     {

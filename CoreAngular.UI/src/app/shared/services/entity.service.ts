@@ -7,10 +7,10 @@ import { Entity } from './../models/entity';
   providedIn: 'root'
 })
 export class EntityService<T extends Entity> {
-  constructor(
-    private http: HttpClient,
-    private url: string,
-    private endpoint: string) { }
+    public http: HttpClient;
+    public url: string;
+
+    constructor(private endpoint: string) { }
 
     public get(params: any[]): Observable<T> {
       return this.http.get<T>(`${this.url}/${this.endpoint}/${params}`);
