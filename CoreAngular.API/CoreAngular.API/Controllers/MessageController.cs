@@ -103,7 +103,7 @@ namespace CoreAngular.API.Controllers
             // throw new Exception("Creating the message failed on save");
         }
 
-        [HttpPost("deleteMessage")]
+        [HttpDelete("deleteMessage")]
         public async Task<IActionResult> DeleteMessage(int id, int userId)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
@@ -129,7 +129,7 @@ namespace CoreAngular.API.Controllers
             // throw new Exception("Error deleting the message");
         }
 
-        [HttpPost("markMessageAsRead")]
+        [HttpPut("markMessageAsRead")]
         public async Task<IActionResult> MarkMessageAsRead(int userId, int id)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))

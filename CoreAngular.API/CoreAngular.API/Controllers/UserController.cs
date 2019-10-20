@@ -32,11 +32,14 @@ namespace CoreAngular.API.Controllers
             user.UserName = user.UserName.ToLower();
 
             if (await _userService.UserExists(user.UserName))
+            {
                 return BadRequest("Username already exists.");
-
-            var createdUser = await _userService.Register(user, user.Password);
-
-            return CreatedAtRoute("GetUser", new { controller = "Users", id = createdUser.Id }, createdUser);
+            }
+            else
+            {
+                var createdUser = await _userService.Register(user, user.Password);
+                return CreatedAtRoute("GetUser", new { controller = "Users", id = createdUser.Id }, createdUser);
+            }
         }
 
         [HttpPost("login")]
@@ -45,34 +48,34 @@ namespace CoreAngular.API.Controllers
             var loginUser = await _userService.Login(user.UserName.ToLower(), user.Password);
 
             if (loginUser == null)
+            {
                 return Unauthorized();
-
-            var claims = new[]
+            }
+            else
             {
-                new Claim(ClaimTypes.NameIdentifier, loginUser.Id.ToString()),
-                new Claim(ClaimTypes.Name, loginUser.UserName)
-            };
+                var claims = new[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, loginUser.Id.ToString()),
+                    new Claim(ClaimTypes.Name, loginUser.UserName)
+                };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
 
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(1),
-                SigningCredentials = creds
-            };
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(claims),
+                    Expires = DateTime.Now.AddDays(1),
+                    SigningCredentials = creds
+                };
 
-            var tokenHandler = new JwtSecurityTokenHandler();
+                var tokenHandler = new JwtSecurityTokenHandler();
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+                var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return Ok(new
-            {
-                token = tokenHandler.WriteToken(token),
-                loginUser
-            });
+                return Ok(new { token = tokenHandler.WriteToken(token), loginUser });
+            }
         }
     }
 }
