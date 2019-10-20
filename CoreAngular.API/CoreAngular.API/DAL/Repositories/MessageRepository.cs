@@ -19,15 +19,17 @@ namespace CoreAngular.API.DAL.Repositories
 
         public async Task<Message> GetMessage(int id)
         {
-            return await _unitOfWork.Context.Set<Message>().FirstOrDefaultAsync(m => m.Id == id);
+            var message = await _unitOfWork.Context.Set<Message>().FirstOrDefaultAsync(m => m.Id == id);
+            return message;
         }
 
         public async Task<IEnumerable<Message>> GetMessagesForUser(int userId)
         {
-            return _unitOfWork.Context.Set<Message>()
+            var messages = _unitOfWork.Context.Set<Message>()
                 .Where(m => m.ReceivingUserId == userId)
                 .AsQueryable()
                 .OrderByDescending(d => d.DateSent);
+            return messages;
         }
 
         public async Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId)
@@ -39,7 +41,6 @@ namespace CoreAngular.API.DAL.Repositories
                     && m.IsSenderDeleted == false)
                 .OrderByDescending(m => m.DateSent)
                 .ToListAsync();
-
             return messages;
         }
 

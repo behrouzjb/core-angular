@@ -31,25 +31,25 @@ namespace CoreAngular.API.DAL.Repositories
 
         public async Task<User> Register(User user, string password)
         {
+            var userRegister = user;
+
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
 
-            user.PasswordHash = passwordHash;
-            user.PasswordSalt = passwordSalt;
+            userRegister.PasswordHash = passwordHash;
+            userRegister.PasswordSalt = passwordSalt;
 
-            await _unitOfWork.Context.Set<User>().AddAsync(user);
+            await _unitOfWork.Context.Set<User>().AddAsync(userRegister);
 
             await _unitOfWork.Context.SaveChangesAsync();
 
-            return user;
+            return userRegister;
         }
 
         public async Task<bool> UserExists(string username)
         {
-            if (_unitOfWork.Context.Set<User>().Any(x => x.UserName == username))
-                return true;
-
-            return false;
+            var exists = _unitOfWork.Context.Set<User>().Any(x => x.UserName == username);
+            return exists;
         }
 
         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)

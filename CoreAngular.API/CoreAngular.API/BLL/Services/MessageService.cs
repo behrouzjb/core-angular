@@ -18,17 +18,20 @@ namespace CoreAngular.API.BLL.Services
 
         public async Task<Message> GetMessage(int id)
         {
-            return await _messageRepository.GetMessage(id);
+            var message = await _messageRepository.GetMessage(id);
+            return message;
         }
 
         public async Task<IEnumerable<Message>> GetMessagesForUser(int userId)
         {
-            return _messageRepository.GetMessagesForUser(userId).Result.ToList();
+            var messages = await _messageRepository.GetMessagesForUser(userId);
+            return messages.ToList();
         }
 
         public async Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId)
         {
-            return _messageRepository.GetMessageThread(userId, recipientId).Result.ToList();
+            var messages = await _messageRepository.GetMessageThread(userId, recipientId);
+            return messages.ToList();
         }
 
         public Message Get(params object[] values)
