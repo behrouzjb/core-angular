@@ -4,14 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using CoreAngular.API.DAL.Models;
 
-namespace CoreAngular.API.DAL.Repositories
+namespace CoreAngular.API.BLL.Services
 {
-    public interface IUserRepository : IRepository<User>
+    public interface IUserService : IEntityService<User>
     {
         Task<User> Login(string username, string password);
         Task<User> Register(User user, string password);
         Task<bool> UserExists(string username);
-        //bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt);
-        //void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt);
     }
 }

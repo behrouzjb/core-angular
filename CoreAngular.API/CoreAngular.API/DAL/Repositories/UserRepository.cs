@@ -1,16 +1,17 @@
-﻿using CoreAngular.API.DAL.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
+using CoreAngular.API.DAL.Models;
 
 namespace CoreAngular.API.DAL.Repositories
 {
-    public class UserRepository : Repository<User>, IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public UserRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public UserRepository(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -71,6 +72,45 @@ namespace CoreAngular.API.DAL.Repositories
                 passwordSalt = hmac.Key;
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
+        }
+
+        public User Get(params object[] values)
+        {
+            return _unitOfWork.Context.Set<User>().SingleOrDefault();
+        }
+
+        public IEnumerable<User> GetAll()
+        {
+            return _unitOfWork.Context.Set<User>().AsEnumerable<User>();
+        }
+
+        public IEnumerable<User> Find(Expression<Func<User, bool>> predicate)
+        {
+            return _unitOfWork.Context.Set<User>().Where(predicate).AsEnumerable<User>();
+        }
+
+        public void Add(User user)
+        {
+            _unitOfWork.Context.Set<User>().Add(user);
+            SaveChanges();
+        }
+
+        public void Update(User user)
+        {
+            _unitOfWork.Context.Set<User>().Attach(user);
+            SaveChanges();
+        }
+
+        public void Delete(User user)
+        {
+            User existing = _unitOfWork.Context.Set<User>().Find(user);
+            if (existing != null) _unitOfWork.Context.Set<User>().Remove(existing);
+            SaveChanges();
+        }
+
+        public void SaveChanges()
+        {
+            _unitOfWork.SaveChanges();
         }
     }
 }

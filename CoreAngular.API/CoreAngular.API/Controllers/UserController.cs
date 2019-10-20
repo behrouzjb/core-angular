@@ -5,12 +5,12 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using CoreAngular.API.DAL.Models;
-using CoreAngular.API.DAL.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using CoreAngular.API.BLL.Services;
+using CoreAngular.API.DAL.Models;
 
 namespace CoreAngular.API.Controllers
 {
@@ -18,39 +18,39 @@ namespace CoreAngular.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserRepository _repo;
+        private readonly IUserService _userService;
         private readonly IConfiguration _config;
-        public UserController(IUserRepository repo, IConfiguration config)
+        public UserController(IUserService serv, IConfiguration config)
         {
             _config = config;
-            _repo = repo;
+            _userService = serv;
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<User>> Register(User userForRegisterDto)
+        public async Task<ActionResult<User>> Register(User user)
         {
-            userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
+            user.UserName = user.UserName.ToLower();
 
-            if (await _repo.UserExists(userForRegisterDto.UserName))
+            if (await _userService.UserExists(user.UserName))
                 return BadRequest("Username already exists.");
 
-            var createdUser = await _repo.Register(userForRegisterDto, userForRegisterDto.Password);
+            var createdUser = await _userService.Register(user, user.Password);
 
             return CreatedAtRoute("GetUser", new { controller = "Users", id = createdUser.Id }, createdUser);
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<User>> Login(User userForLoginDto)
+        public async Task<ActionResult<User>> Login(User user)
         {
-            var userFromRepo = await _repo.Login(userForLoginDto.UserName.ToLower(), userForLoginDto.Password);
+            var loginUser = await _userService.Login(user.UserName.ToLower(), user.Password);
 
-            if (userFromRepo == null)
+            if (loginUser == null)
                 return Unauthorized();
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
-                new Claim(ClaimTypes.Name, userFromRepo.UserName)
+                new Claim(ClaimTypes.NameIdentifier, loginUser.Id.ToString()),
+                new Claim(ClaimTypes.Name, loginUser.UserName)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
@@ -71,7 +71,7 @@ namespace CoreAngular.API.Controllers
             return Ok(new
             {
                 token = tokenHandler.WriteToken(token),
-                userFromRepo
+                loginUser
             });
         }
     }
