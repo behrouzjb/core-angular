@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using CoreAngular.API.DAL.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoreAngular.API.DAL.Repositories
 {
@@ -14,6 +15,32 @@ namespace CoreAngular.API.DAL.Repositories
         public MessageRepository(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+        }
+
+        public async Task<Message> GetMessage(int id)
+        {
+            return await _unitOfWork.Context.Set<Message>().FirstOrDefaultAsync(m => m.Id == id);
+        }
+
+        public async Task<IEnumerable<Message>> GetMessagesForUser(int userId)
+        {
+            return _unitOfWork.Context.Set<Message>()
+                .Where(m => m.ReceivingUserId == userId)
+                .AsQueryable()
+                .OrderByDescending(d => d.DateSent);
+        }
+
+        public async Task<IEnumerable<Message>> GetMessageThread(int userId, int recipientId)
+        {
+            var messages = await _unitOfWork.Context.Set<Message>()
+                .Where(m => m.ReceivingUserId == userId && m.IsReceiverDeleted == false
+                    && m.SendingUserId == recipientId
+                    || m.ReceivingUserId == recipientId && m.SendingUserId == userId
+                    && m.IsSenderDeleted == false)
+                .OrderByDescending(m => m.DateSent)
+                .ToListAsync();
+
+            return messages;
         }
 
         public Message Get(params object[] values)
