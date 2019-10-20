@@ -10,7 +10,7 @@ export class EntityService<T extends Entity> {
     public http: HttpClient;
     public url: string;
 
-    constructor(private endpoint: string) { }
+    constructor(public endpoint: string) { }
 
     public get(params: any[]): Observable<T> {
       return this.http.get<T>(`${this.url}/${this.endpoint}/${params}`);
