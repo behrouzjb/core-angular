@@ -46,24 +46,8 @@ export class UserService extends EntityService<User> {
 
     let params = new HttpParams();
 
-    if (page != null && itemsPerPage != null) {
-      params = params.append('pageNumber', page);
-      params = params.append('pageSize', itemsPerPage);
-    }
-
     if (userParams != null) {
-      params = params.append('minAge', userParams.minAge);
-      params = params.append('maxAge', userParams.maxAge);
-      params = params.append('gender', userParams.gender);
       params = params.append('orderBy', userParams.orderBy);
-    }
-
-    if (likesParam === 'Likers') {
-      params = params.append('Likers', 'true');
-    }
-
-    if (likesParam === 'Likees') {
-      params = params.append('Likees', 'true');
     }
 
     return this.http.get<User[]>(`${this.url}/${this.endpoint}/getUsers`, { observe: 'response', params})

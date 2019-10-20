@@ -46,7 +46,7 @@ namespace CoreAngular.API.Controllers
             }
         }
 
-        [HttpGet(Name = "getMessagesForUser")]
+        [HttpGet("getMessagesForUser")]
         public async Task<ActionResult<List<Message>>> GetMessagesForUser(int userId)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
