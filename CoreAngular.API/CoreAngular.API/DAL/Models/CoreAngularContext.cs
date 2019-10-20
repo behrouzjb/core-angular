@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 
-namespace CoreAngular.API.Models
+namespace CoreAngular.API.DAL.Models
 {
     public partial class CoreAngularContext : DbContext
     {

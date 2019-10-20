@@ -2,13 +2,14 @@
 using System;
 using System.Collections.Generic;
 
-namespace CoreAngular.API.Models
+namespace CoreAngular.API.DAL.Models
 {
     public partial class User : Entity
     {
         public int Id { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
+        public string Password { get; set; }
         public string UserName { get; set; }
         public string PublicId { get; set; }
         public string Description { get; set; }
