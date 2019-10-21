@@ -5,13 +5,12 @@ import { UserModule } from './user/user.module';
 import { MessageModule } from './message/message.module';
 
 @NgModule({
-  declarations: [
+  declarations: [],
+  imports: [
+    CommonModule,
     HomeModule,
     UserModule,
     MessageModule
-  ],
-  imports: [
-    CommonModule
   ]
 })
 export class ModulesModule { }

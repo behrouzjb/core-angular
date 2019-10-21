@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MaterialComponent } from './components/material/material.component';
-
-
+import { EntityService } from './services/entity.service';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
-  declarations: [MaterialComponent],
+  declarations: [ AuthGuard ],
   imports: [
     CommonModule
-  ]
+  ],
+  providers: [ EntityService ]
 })
 export class SharedModule { }
