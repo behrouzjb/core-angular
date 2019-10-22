@@ -18,6 +18,9 @@ export class EntityService<T extends Entity> {
     public get(params: any[]): Observable<T> {
       return this.http.get<T>(`${this.url}/${this.endpoint}/${params}`);
     }
+    public getById(id: number): Observable<T> {
+      return this.http.get<T>(`${this.url}/${this.endpoint}/${id}`);
+    }
     public getAll(): Observable<T[]> {
       return this.http.get<T[]>(`${this.url}/${this.endpoint}`);
     }

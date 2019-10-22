@@ -31,11 +31,14 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { DataTableComponent } from './data-table/data-table.component';
+import { CdkTableModule } from '@angular/cdk/table';
 
 @NgModule({
-  declarations: [],
+  declarations: [DataTableComponent],
   imports: [
     CommonModule,
+    CdkTableModule,
     MatCheckboxModule,
     MatCheckboxModule,
     MatButtonModule,
